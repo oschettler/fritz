@@ -1,0 +1,74 @@
+# Fritz grammar
+
+program:
+    ( markdown_section )*
+
+markdown_section:
+      MARKDOWN_HEADLINE
+    / MARKDOWN_PARAGRAPH
+/* N.Y.I.
+    / markdown_ordered_list
+    / markdown_unordered_list
+*/
+    / fritz_code
+    / MARKDOWN_INDENTED
+
+fritz_code:
+      assignment
+    / call
+    / if
+    / while
+
+assignment:
+      named_value
+    / IDENTIFIER ( parameter )* ":" "\n" block
+
+parameter:
+      IDENTIFIER
+    / IDENTIFIER ":" IDENTIFIER
+
+block:
+    fritz_code
+
+named_value:
+    IDENTIFIER ":" value
+
+value:
+    / simple_value
+    / value operator value
+    / "(" value operator value ")"
+    / "not" value
+
+simple_value:
+      BOOL
+    / string
+    / NUMBER
+    / list
+    / map
+
+operator:
+      "*" / "/" / "//" / "%" / "+" / "-" / "**"
+    / "=" / "!=" / "<=" / ">="
+    / "&" / "|"
+    / "and" / "or"
+
+list:
+    "(" ( value )* ")"
+
+map:
+    "(" ( named_value )* ")"
+
+if:
+    "if" value ":" "\n" fritz_code
+    ( "else" "if" value ":" "\n" fritz_code )*
+    ( "else" ":" "\n" fritz_code )?
+
+while:
+      "while" value ":" "\n" fritz_code
+    / "while" IDENTIFIER "in" list ":" "\n" fritz_code
+    / "while IDENTIFIER IDENTIFIER "in" map ":" "\n" fritz_code
+    / "while" IDENTIFIER "in" range ":" "\n" fritz_code
+
+range:
+      value ".." value
+    / value "..." value

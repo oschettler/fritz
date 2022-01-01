@@ -50,13 +50,26 @@ Parameters can be named:
     check x: x y: y:
       print x y
 
-Parameters may be separated by commas:
+Parameters may be separated by commas (@todo):
 
     check x: x, y: y:
       print x, y
 
+By now you will have noticed: Similar to Python, indentation is important.
 
-By now you will have notices: Similar to Python, indentation is important.
+Functions may also be passed as parameters.
+
+    compare a b: a < b
+
+    list: ( 1 3 2 7 5 6)
+    sort list compare
+
+Functions to be used as parameter may be defined on the fly and passed anonymously.
+
+    compare a b: a < b
+
+    list: ( 1 3 2 7 5 6)
+    sort list (a b: a < b)
 
 ## Conditions
 
@@ -67,7 +80,7 @@ By now you will have notices: Similar to Python, indentation is important.
     else:
       print "All other cases"
 
-Multiple conditions may be checked at once.
+Multiple conditions may be checked at once (@todo).
 
     if a
       < 10:
@@ -82,7 +95,7 @@ Multiple conditions may be checked at once.
 
 In this construct, the branches don't fall through as they do in "C". Instead, if you want to have a branch fall through, you **continue** to the next branch.
 
-Conditions may also be used as expression.
+Conditions may also be used as expression (@todo).
 
     b: 5 if a = 5 else 7
 
@@ -105,15 +118,18 @@ There are two types of loops. All of them use the **while** keyword.
 
 In the last loop, the ".." creates a range. The Numbers 2, 3, 4 are printed. If you want an inclusive range, use three dots "...".
 
-## Alternative - No loops
+## Alternative - No loops (@todo)
 
-It might be possible to completely go without loops:
+It might be possible to completely go without loops, but rather use recursion.
 
-    var list: ("aaa" "bbb" "ccc")
-    to loop i in list:
+    list: ("aaa" "bbb" "ccc")
+
+    loop i:
       if not i:
           return
-      loop i    
+      loop i
+    
+    loop i in list
 
 ## Iterators
 
@@ -127,6 +143,6 @@ a_list will contain ("Ol" "Le" "Bi")
 
 Example invocations may be included after a leading **>**.with the expected result after a **->**.
 
-> add 3 5 -> 8
-> add 2.5 -3 -> -1.5
-> add "hallo" " schöne welt!" -> "hallo schöne welt!"
+    > add 3 5 -> 8
+    > add 2.5 -3 -> -1.5
+    > add "hallo" " schöne welt!" -> "hallo schöne welt!"
