@@ -1,6 +1,6 @@
-# Minilang - Language overview
+# Fritz - Language overview
 
-Minlang combines documentation, code, and tests into a single file format. Minilang programs are valid Markdown files. Code is embedded as indented blocks.
+Fritz combines documentation, code, and tests into a single file format. Fritz programs are valid Markdown files. Code is embedded as indented blocks.
 
 ## Literals
 
