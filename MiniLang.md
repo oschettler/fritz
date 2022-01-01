@@ -1,43 +1,62 @@
-# Example #1
+# Minilang - Language overview
 
-Minlang programs are valid Markdown files. Code is embedded as indended blocks
+Minlang combines documentation, code, and tests into a single file format. Minilang programs are valid Markdown files. Code is embedded as indented blocks.
 
 ## Literals
 
 There are literals for the basic types *bool*, *number*, *text*, *list*, and *map*. 
 
-Variables are declared by assigning to them. Identifiers names may consist if letters, digits, and underscores. They must begin with a letter.
+Variables are declared by assigning a value to them. Identifiers names may consist if letters, digits, and underscores. They must begin with a letter.
 
-  var a_bool: true
-  vat a_text: "Hallo Welt"
-  var the_number_zero: 0.0
-  var a_negative_number: -1
-  var a_list: ( 2 4 "six" ( "a nested list" 42 ) )
-  var a_map: ( first: "What?" second: "Cool" "third with spaces": 42 )
+  a_bool: true
+  a_text: "Hallo schöne Welt ☺"
+  the_number_zero: 0.0
+  a_negative_number: -1
+  a_list: ( 2 4 "six" ( "a nested list" 42 ) )
+  a_map: ( first: "What?" second: "Cool" "third with spaces": 42 )
+  a_rect: ( x: 10 y: 20 w: 13 h: 8 )
 
 Commas in lists are optional.
 
-  var a_list: (1, 2, "hallo")
+  a_list: (1, 2, "hallo")
+
+Strings may contain code, enclosed in **.().**.
+
+  a_text: "There are .(n). kitten.("s" if n != 1). in the basket."
 
 ## Functions
 
-Functions are defined similar to variables.
+Functions consist of a variable and a value that is not constant, but computed. Computed values may take parameters and can incorporate ("close over") their scope.
 
-  to add a b:
+  t: 1
+  tick: t + 1
+
+  plus1 a:
+    a + 1
+
+  add a b:
     a + b
+
+Functions return the value of the last expression. Return statements may also be used.
+
+  max a b:
+    if a > b:
+      return a
+    else:
+      return b
 
 Parameters can be named:
 
-  to check x: x y: y:
+  check x: x y: y:
     print x y
 
 Parameters may be separated by commas:
 
-  to check x: x, y: y:
+  check x: x, y: y:
     print x, y
 
 
-Similar to Python, indentation is important.
+By now you will have notices: Similar to Python, indentation is important.
 
 ## Conditions
 
@@ -50,19 +69,26 @@ Similar to Python, indentation is important.
 
 Multiple conditions may be checked at once.
 
-  if a in
-    5: print "A is five"
-    7: print "A is seven"
+  if a
+    < 10:
+      print "A is below ten"
+      continue
+    = 5: 
+      print "A is five"
+    = 7: 
+      print "A is seven"
     else:
       print "All other cases"
 
+In this construct, the branches don't fall through as they do in "C". Instead, if you want to have a branch fall through, you **continue** to the next branch.
+
 Conditions may also be used as expression.
 
-  var b: 5 if a = 5 else 7
+  b: 5 if a = 5 else 7
 
 ## Loops
 
-There are two types of loops:
+There are two types of loops. All of them use the **while** keyword.
 
   a: false
   while a = false:
@@ -83,7 +109,7 @@ In the last loop, the ".." creates a range. The Numbers 2, 3, 4 are printed. If 
 
 Iterators may be invoked separate from loops, like list comprehensions in Python
 
-  var a_list: element[0..1] while element in ("Olav" "Lena" "Birgit")
+  a_list: element[0..1] while element in ("Olav" "Lena" "Birgit")
 
 a_list will contain ("Ol" "Le" "Bi")
 
