@@ -105,6 +105,16 @@ There are two types of loops. All of them use the **while** keyword.
 
 In the last loop, the ".." creates a range. The Numbers 2, 3, 4 are printed. If you want an inclusive range, use three dots "...".
 
+## Alternative - No loops
+
+It might be possible to completely go without loops:
+
+  var list: ("aaa" "bbb" "ccc")
+  to loop i in list:
+    if not i:
+        return
+    loop i    
+
 ## Iterators
 
 Iterators may be invoked separate from loops, like list comprehensions in Python
@@ -120,4 +130,3 @@ Example invocations may be included after a leading **>**.with the expected resu
 > add 3 5 -> 8
 > add 2.5 -3 -> -1.5
 > add "hallo" " schöne welt!" -> "hallo schöne welt!"
-
